@@ -34,6 +34,33 @@
         "consultationsHours": "godziny",
         "comments": "uwagi"
       }
+    },
+    "fullTimeWinter": {
+      "sheetName": "zima-s",
+      "headerRow": 1,
+      "firstColumn": "A",
+      "lastColumn": "R",
+      "lastRow": 20,
+      "columnNames": {
+        "studies": "studia",
+        "semester": "sem",
+        "localization": "lok",
+        "course": "przedmiot",
+        "electiveId": "obier",
+        "courseType": "typ",
+        "groupId": "grupa",
+        "hoursNumber": "wym",
+        "executedHoursNumber": "wyk",
+        "departmentName": "prow",
+        "trainer": "osoba",
+        "roomName": "sala",
+        "weekId": "tyg",
+        "day": "dzien",
+        "startTime": "godz",
+        "endTime": "koniec",
+        "unknown": "prot",
+        "comments": "uwagi"
+      }
     }
   }
 }
