@@ -28,10 +28,10 @@ class Timetable:
         "Cz": "Czwartek",
         "Pt": "Piątek",
         "So": "Sobota",
-        "Sn": "Nedziela",
+        "Nd": "Nedziela",
     }
 
-    days_of_week = ["Pn", "Wt", "Sr", "Cz", "Pt", "So", "Sn"]
+    days_of_week = ["Pn", "Wt", "Sr", "Cz", "Pt", "So", "Nd"]
 
     def get_with_not_null_column(self, column_name, data):
         result = []

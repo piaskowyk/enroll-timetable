@@ -6,11 +6,18 @@ from timetable import Timetable
 from commands.help import Help
 from commands.load import Load
 from commands.room import Room
+from config_tools.configuration import Configuration
+from spreadsheet_tools.sheet_data_importer import SpreadsheetDataImporter
+from spreadsheet_data.building_data import *
+from spreadsheet_data.room_data import *
+from spreadsheet_data.department_data import *
+from spreadsheet_data.trainer_data import *
 
 
 help_command = Help()
 room_command = Room()
 _workbook = load_workbook(filename='data/data.xlsx')#debugs
+configuration = Configuration(filepath="config.json")
 
 
 def set_workbook(workbook):
@@ -27,8 +34,8 @@ command = {
 
 
 def input_mode():
-    # args = input("> ").split()#debug
-    args = ["room-table", "a"]#debug
+    args = input("> ").split()#debug
+    # args = ["room-table", "a"]#debug
     if len(args) < 1:
         print("unknown command")
     else:
@@ -41,9 +48,14 @@ def input_mode():
 
 def main():
     print("TIMETABLE-GENERATOR WIET 2019 - interactive mode")
+    building_data = BuildingData()
+    room_data = RoomData(configuration.data, _workbook, building_data)
+    department_data = DepartmentData()
+    trainer_data = TrainerData(configuration.data, _workbook, department_data)
 
-    # while True:#debug
-    input_mode()
+
+    while True:#debug
+        input_mode()
 
 
 if __name__ == "__main__":

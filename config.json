@@ -1,0 +1,39 @@
+{
+  "tables": {
+    "rooms": {
+      "sheetName": "sale",
+      "headerRow": 1,
+      "firstColumn": "A",
+      "lastColumn": "E",
+      "lastRow": -1,
+      "columnNames": {
+        "buildingName": "bud",
+        "roomName": "sala",
+        "roomType": "typ",
+        "capacity": "poj",
+        "comments": "uwagi"
+      }
+    },
+    "trainers": {
+      "sheetName": "osoby",
+      "headerRow": 1,
+      "firstColumn": "A",
+      "lastColumn": "L",
+      "lastRow": 20,
+      "columnNames": {
+        "name": "nazwisko",
+        "departmentName": "katedra",
+        "position": "stanowisko",
+        "degree": "stopien",
+        "extraInfo": "dodatkowe",
+        "pensum": "pensum",
+        "pensumDiscount": "obnizka",
+        "email": "e-mail",
+        "consultationsRoom": "pokój",
+        "consultationsDay": "dzień",
+        "consultationsHours": "godziny",
+        "comments": "uwagi"
+      }
+    }
+  }
+}
