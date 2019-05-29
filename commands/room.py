@@ -2,6 +2,7 @@ from openpyxl import Workbook
 from openpyxl.utils import get_column_letter
 from openpyxl import load_workbook
 from timetable import Timetable
+from spreadsheet_data.full_time_semester_event_data import *
 
 
 class Room:
@@ -9,20 +10,25 @@ class Room:
     def __init__(self):
         self.tools = Timetable()
 
-    def exec_comand(self, args, workbook):
+    def exec_comand(self, spreadsheet_data, args):
         print("start")
-        sheet = workbook['zima-s']
-        timetable = Timetable()
-        all_rooms = sorted(timetable.get_unique_value_from_column('sala', sheet.rows))
-        # print(all_rooms)
-        exist_room = self.tools.get_with_not_null_column('sala', sheet.rows)
-        exist_room_day = self.tools.get_with_not_null_column('dzien', exist_room)
-        exist_room_day_time = self.tools.get_with_not_null_column('dzien', exist_room_day)
-        for room in all_rooms:
-            print("Room ", room)
-            room_data = self.tools.get_with_column_equals('sala', room, exist_room_day_time)
-            for day in self.tools.days_of_week[0:5]:
-                print(day)
+        for room_key, room in spreadsheet_data.room_data.data.items():
+            print(str(room.building_id) + ' - ' + str(room.name))
+            if id(spreadsheet_data.full_time_first_semester_event_data) in \
+                    room.referenced_by:
+                for event_id in room.referenced_by[
+                    id(spreadsheet_data.full_time_first_semester_event_data)]:
+                    event = \
+                        spreadsheet_data.full_time_first_semester_event_data \
+                            .data[event_id]
+                    if event.event_time != 0:
+                        print(event.event_time.get_string())
+                    else:
+                        print('??: ??:?? - ??:??')
+                    print(event.course_id)
+                    print(event_types[event.event_type])
+                    print(event.trainer_id)
+                    print()
             print("----------------------------")
         # for item in exist_room_date:
         #     print(item[self.tools.columnNameToIndex['sala']].value)

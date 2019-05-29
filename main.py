@@ -7,19 +7,13 @@ from commands.help import Help
 from commands.load import Load
 from commands.room import Room
 from config_tools.configuration import Configuration
-from spreadsheet_tools.sheet_data_importer import SpreadsheetDataImporter
-from spreadsheet_data.building_data import *
-from spreadsheet_data.room_data import *
-from spreadsheet_data.department_data import *
-from spreadsheet_data.trainer_data import *
-from spreadsheet_data.course_data import *
-from spreadsheet_data.full_time_semester_event_data import *
-
+from spreadsheet_data.spreadsheet_data import *
 
 help_command = Help()
 room_command = Room()
 _workbook = load_workbook(filename='data/data.xlsx')#debugs
 configuration = Configuration(filepath="config.json")
+spreadsheet_data = SpreadsheetData(configuration.data, _workbook)
 
 
 def set_workbook(workbook):
@@ -29,7 +23,7 @@ def set_workbook(workbook):
 
 command = {
     "load": lambda x: set_workbook(Load.exec_command(x)),
-    "room-table": lambda x: room_command.exec_comand(x, _workbook),
+    "room-table": lambda x: room_command.exec_comand(spreadsheet_data, x),
     "help": lambda x: help_command.exec_command(x),
     "exit": lambda x: exit(0),
 }
@@ -50,14 +44,6 @@ def input_mode():
 
 def main():
     print("TIMETABLE-GENERATOR WIET 2019 - interactive mode")
-    building_data = BuildingData()
-    room_data = RoomData(configuration.data, _workbook, building_data)
-    department_data = DepartmentData()
-    trainer_data = TrainerData(configuration.data, _workbook, department_data)
-    course_data = CourseData()
-    full_time_first_semester_event_data = FullTimeSemesterEventData(
-        configuration.data, _workbook, 'fullTimeWinter', course_data,
-        department_data, trainer_data, room_data)
 
     while True:#debug
         input_mode()
