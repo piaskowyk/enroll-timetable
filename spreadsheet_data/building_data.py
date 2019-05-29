@@ -1,10 +1,18 @@
 class BuildingInfo:
-    id = 0
     name = ""
+    referenced_by = dict()
 
-    def __init__(self, identifier, name):
-        self.id = identifier
+    def __init__(self, name):
+        self.referenced_by = dict()
         self.name = name
+
+    def get_key(self):
+        return str(self.name)
+
+    def add_reference(self, requester_data, requester_key):
+        if id(requester_data) not in self.referenced_by:
+            self.referenced_by[id(requester_data)] = []
+        self.referenced_by[id(requester_data)].append(requester_key)
 
 
 class BuildingData:
@@ -13,9 +21,12 @@ class BuildingData:
     def __init__(self):
         pass
 
-    def get_building_id(self, building_name):
+    def get_building_id(self, building_name, requester_data, requester_key):
         if building_name in self.data:
-            return self.data[building_name].id
-        new_info = BuildingInfo(len(self.data), building_name)
-        self.data[building_name] = new_info
-        return self.data[building_name].id
+            self.data[building_name].add_reference(requester_data,
+                                                   requester_key)
+            return building_name
+        new_info = BuildingInfo(building_name)
+        self.data[new_info.get_key()] = new_info
+        self.data[building_name].add_reference(requester_data, requester_key)
+        return building_name
