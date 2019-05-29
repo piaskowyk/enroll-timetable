@@ -1,3 +1,5 @@
+import datetime
+
 days_of_week = {'Pn': 'Monday',
                 'Wt': 'Tuesday',
                 'Sr': 'Wednesday',
@@ -22,6 +24,8 @@ class WeeklyTimePeriod:
         if isinstance(start_time, str):
             self.start_time = 60*int(start_time.split(time_delim)[0]) + \
                 int(start_time.split(time_delim)[1])
+        elif isinstance(start_time, datetime.time):
+            self.start_time = 60*start_time.hour + start_time.minute
         else:
             self.start_time = start_time
         if end_time == -1:
@@ -30,5 +34,7 @@ class WeeklyTimePeriod:
             if isinstance(end_time, str):
                 self.end_time = 60*int(end_time.split(time_delim)[0]) + \
                     int(end_time.split(time_delim)[1])
+            elif isinstance(end_time, datetime.time):
+                self.end_time = 60*end_time.hour + end_time.minute
             else:
                 self.end_time = end_time

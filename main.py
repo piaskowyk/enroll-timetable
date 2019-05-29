@@ -12,6 +12,8 @@ from spreadsheet_data.building_data import *
 from spreadsheet_data.room_data import *
 from spreadsheet_data.department_data import *
 from spreadsheet_data.trainer_data import *
+from spreadsheet_data.course_data import *
+from spreadsheet_data.full_time_semester_event_data import *
 
 
 help_command = Help()
@@ -52,7 +54,10 @@ def main():
     room_data = RoomData(configuration.data, _workbook, building_data)
     department_data = DepartmentData()
     trainer_data = TrainerData(configuration.data, _workbook, department_data)
-
+    course_data = CourseData()
+    full_time_first_semester_event_data = FullTimeSemesterEventData(
+        configuration.data, _workbook, 'fullTimeWinter', course_data,
+        department_data, trainer_data, room_data)
 
     while True:#debug
         input_mode()

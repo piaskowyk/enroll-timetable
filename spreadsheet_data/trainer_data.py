@@ -11,7 +11,6 @@ degrees = {'0': 'Undefined degree',
 
 
 class TrainerInfo:
-    id = 0
     first_name = ''
     last_name = ''
     department_id = 0
@@ -25,8 +24,7 @@ class TrainerInfo:
     consult_time = 0
     comments = ""
 
-    def __init__(self, identifier, record, department_data):
-        self.id = identifier
+    def __init__(self, record, department_data):
         self.first_name = record['name'].split()[-1]
         self.last_name = ''.join(record['name'].split()[0: -1])
         self.position = record['position']
@@ -59,8 +57,18 @@ class TrainerData:
                                                         "trainers")
         cur_record = trainer_data_importer.load_next_record()
         while len(cur_record) > 0:
-            cur_trainer = TrainerInfo(len(self.data), cur_record,
-                                      department_data)
-            self.data[str(cur_trainer.last_name)+str(cur_trainer.first_name)] =\
+            cur_trainer = TrainerInfo(cur_record, department_data)
+            self.data[str(cur_trainer.last_name) + ' ' + str(
+                cur_trainer.first_name)] = \
                 cur_trainer
             cur_record = trainer_data_importer.load_next_record()
+
+    def get_trainer_id(self, first_name, last_name):
+        key = ''.join(last_name) + ' ' + first_name
+        if key in self.data:
+            return key
+        else:
+            return 0
+            # raise NameError(
+            #     'Trainer ' + first_name + ' ' + ''.join(
+            #         last_name) + ' not found!\n')

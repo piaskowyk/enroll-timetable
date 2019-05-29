@@ -1,9 +1,7 @@
 class DepartmentInfo:
-    id = 0
     name = ''
 
-    def __init__(self, identifier, name):
-        self.id = identifier
+    def __init__(self, name):
         self.name = name
 
 
@@ -15,7 +13,7 @@ class DepartmentData:
 
     def get_department_id(self, department_name):
         if department_name in self.data:
-            return self.data[department_name].id
-        new_info = DepartmentInfo(len(self.data), department_name)
+            return department_name
+        new_info = DepartmentInfo(department_name)
         self.data[department_name] = new_info
-        return self.data[department_name].id
+        return department_name
