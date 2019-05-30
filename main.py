@@ -1,8 +1,4 @@
-import sys
-from openpyxl import Workbook
-from openpyxl.utils import get_column_letter
 from openpyxl import load_workbook
-from timetable import Timetable
 from commands.help import Help
 from commands.load import Load
 from commands.room import Room
@@ -23,15 +19,15 @@ def set_workbook(workbook):
 
 command = {
     "load": lambda x: set_workbook(Load.exec_command(x)),
-    "room-table": lambda x: room_command.exec_comand(spreadsheet_data, x),
+    "room-table": lambda x: room_command.exec_command(spreadsheet_data, x),
     "help": lambda x: help_command.exec_command(x),
     "exit": lambda x: exit(0),
 }
 
 
 def input_mode():
-    args = input("> ").split()#debug
-    # args = ["room-table", "a"]#debug
+    # args = input("> ").split() #debug
+    args = ["room-table", "./data/tmp.pdf"] #debug
     if len(args) < 1:
         print("unknown command")
     else:
@@ -45,13 +41,10 @@ def input_mode():
 def main():
     print("TIMETABLE-GENERATOR WIET 2019 - interactive mode")
 
-    while True:#debug
+    while True:
         input_mode()
+        return #debug
 
 
 if __name__ == "__main__":
     main()
-
-# print("This is the name of the script: ", sys.argv[0])
-# print("Number of arguments: ", len(sys.argv))
-# print("The arguments are: " , str(sys.argv))

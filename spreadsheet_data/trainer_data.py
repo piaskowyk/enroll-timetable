@@ -41,11 +41,14 @@ class TrainerInfo:
                 record['consultationsHours'] is None:
             self.consult_time = 0
         else:
+            split_value = record['consultationsHours'].split('-')
+            first = split_value[0]
+            second = None
+            if len(split_value) > 1:
+                second = split_value[1]
             self.consult_time = WeeklyTimePeriod(record['consultationsDay'],
-                                                 record['consultationsHours'].
-                                                 split('-')[0],
-                                                 record['consultationsHours'].
-                                                 split('-')[1])
+                                                 first,
+                                                 second)
         self.comments = record['comments']
         self.department_id = department_data.get_department_id(
             record['departmentName'], requester_data, self.get_key())
