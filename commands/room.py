@@ -1,5 +1,12 @@
-from timetabletools import TimetableTools
+from utils.timetabletools import TimetableTools
 from spreadsheet_data.full_time_semester_event_data import *
+
+from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.units import inch
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer, \
+    Table, TableStyle
 
 
 class Room:
@@ -34,6 +41,7 @@ class Room:
 
     def exec_command(self, spreadsheet_data, args):
         print("start")
+        pdf_data = []
         for room_key, room in spreadsheet_data.room_data.data.items():
             print("Sala:", str(room.building_id) + ' - ' + str(room.name) + "\n")
             for day in self.tools.days_of_week[0:5]:
@@ -50,4 +58,27 @@ class Room:
 
                 print("+++")
             print("------------------------------------------")
+            self.export_to_pdf([[1, 2, 3, 4]])
 
+    def export_to_pdf(self, data):
+        doc = SimpleDocTemplate("./data/tmp.pdf", pagesize=letter)
+        doc.leftMargin = 1
+        styles = getSampleStyleSheet()
+        styleH = styles['Heading1']
+
+        story = []
+
+        story.append(Paragraph("xDDD", styleH))
+        story.append(Spacer(1, 0.25 * inch))
+
+        table = Table(data, hAlign='LEFT')
+        table.setStyle(TableStyle([
+            ('FONT', (0, 0), (-1, 0), 'Helvetica-Bold'),
+            ('ALIGN', (0, 0), (-2, 0), 'CENTER'),
+            ('ALIGN', (0, 0), (0, -5), 'LEFT'),
+            ('INNERGRID', (0, 0), (-1, -1), 0.50, colors.black),
+            ('BOX', (0, 0), (-1, -1), 0.25, colors.black),
+        ]))
+
+        story.append(table)
+        doc.build(story)
