@@ -27,7 +27,7 @@ command = {
 
 def input_mode():
     # args = input("> ").split() #debug
-    args = ["room-table", "a"] #debug
+    args = ["room-table", "./data/tmp.pdf"] #debug
     if len(args) < 1:
         print("unknown command")
     else:
