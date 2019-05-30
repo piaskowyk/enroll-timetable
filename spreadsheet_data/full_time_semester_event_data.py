@@ -20,6 +20,8 @@ class FullTimeSemesterEventInfo:
     room_id = ''
     week_name = ''
     event_time = 0
+    day_name = ''
+    start_time = 0
     unknown = ''
     comments = ''
     referenced_by = dict()
@@ -45,6 +47,8 @@ class FullTimeSemesterEventInfo:
                 self.event_time = WeeklyTimePeriod(record['day'],
                                                    record['startTime'],
                                                    record['endTime'])
+        self.start_time = record['startTime']
+        self.day_name = record['day']
         self.unknown = record['unknown']
         self.comments = record['comments']
         self.course_id = course_data.get_course_id(record['studies'],
