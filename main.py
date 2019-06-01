@@ -26,12 +26,14 @@ command = {
     "load": lambda x: set_spreadsheet_data(Load.exec_command(x)),
     "room-table": lambda x: room_table_command.exec_command(spreadsheet_data, x),
     "free-room-in-time": lambda x: free_room_command.find_free_rooms_in_time(spreadsheet_data, x),
-    "free-time-in-room": lambda x: free_room_command.find_free_rooms_in_time(spreadsheet_data, x),
+    "free-time-in-room": lambda x: free_room_command.find_free_times_in_room(spreadsheet_data, x),
     "help": lambda x: help_command.exec_command(x),
     "exit": lambda x: exit(0),
 }
 
-
+#dorobić historię wpisanych rzeczków
+#przerobić moduł ładowania
+#aktualizowanie chache w bibliotece
 def input_mode():
     # args = input("> ").split() #debug
     # args = ["room-table", "./data/tmp.pdf"] #debug
