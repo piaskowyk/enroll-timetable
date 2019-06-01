@@ -24,7 +24,7 @@ def equal_time(time_first, time_second):
     return True
 
 
-class Room:
+class RoomTable:
 
     def __init__(self):
         self.tools = TimetableTools()
@@ -124,8 +124,8 @@ class Room:
                 elements.append(KeepTogether(Spacer(10, 20)))
             print("------------------------------------------")
 
-        doc.build(elements)
         try:
+            doc.build(elements)
             print("END, pdf is generated")
         except:
             print("Error while generating pdf, check correct of sheet")
