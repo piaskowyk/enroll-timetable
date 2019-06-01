@@ -71,8 +71,8 @@ class RoomTable:
         print("Generating PDF...")
 
         doc = SimpleDocTemplate(args[1], pagesize=letter)
-        pdfmetrics.registerFont(TTFont('Standard', 'font.ttf'))
-        pdfmetrics.registerFont(TTFont('Bold', 'font-bold.ttf'))
+        pdfmetrics.registerFont(TTFont('Standard', 'src/font.ttf'))
+        pdfmetrics.registerFont(TTFont('Bold', 'src/font-bold.ttf'))
         doc.leftMargin = 5
         styles = getSampleStyleSheet()
         style_h1 = ParagraphStyle(name='Heading1',

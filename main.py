@@ -25,7 +25,8 @@ def set_spreadsheet_data(data):
 command = {
     "load": lambda x: set_spreadsheet_data(Load.exec_command(x)),
     "room-table": lambda x: room_table_command.exec_command(spreadsheet_data, x),
-    "free-room": lambda x: free_room_command.exec_command(spreadsheet_data, x),
+    "free-room-in-time": lambda x: free_room_command.find_free_rooms_in_time(spreadsheet_data, x),
+    "free-time-in-room": lambda x: free_room_command.find_free_rooms_in_time(spreadsheet_data, x),
     "help": lambda x: help_command.exec_command(x),
     "exit": lambda x: exit(0),
 }
@@ -34,7 +35,8 @@ command = {
 def input_mode():
     # args = input("> ").split() #debug
     # args = ["room-table", "./data/tmp.pdf"] #debug
-    args = ["free-room"] #debug
+    # args = ["free-room-in-time", "-d", "Pn", "-h", "12:50"] #debug
+    args = ["free-time-in-room", "-r", "D17:1.38"] #debug
     if len(args) < 1:
         print("unknown command")
     else:
