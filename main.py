@@ -1,3 +1,6 @@
+import sys
+import time
+
 from openpyxl import load_workbook
 
 from commands.free_room import FreeRoom
@@ -7,9 +10,23 @@ from commands.room_table import RoomTable
 from config_tools.configuration import Configuration
 from spreadsheet_data.spreadsheet_data import *
 
+CURSOR_UP_ONE = '\x1b[1A'
+ERASE_LINE = '\x1b[2K'
+
+sys.stdout.write(CURSOR_UP_ONE)
+sys.stdout.write(ERASE_LINE)
+
+
+def delete_last_lines(n=1):
+    for _ in range(n):
+        sys.stdout.write(CURSOR_UP_ONE)
+        sys.stdout.write(ERASE_LINE)
+
+
 help_command = Help()
 room_table_command = RoomTable()
 free_room_command = FreeRoom()
+
 #_workbook = None
 _workbook = load_workbook(filename='data/data.xlsx')#debugs
 configuration = Configuration(filepath="config.json")
@@ -31,9 +48,7 @@ command = {
     "exit": lambda x: exit(0),
 }
 
-#dorobić historię wpisanych rzeczków
-#przerobić moduł ładowania
-#aktualizowanie chache w bibliotece
+
 def input_mode():
     # args = input("> ").split() #debug
     # args = ["room-table", "./data/tmp.pdf"] #debug
