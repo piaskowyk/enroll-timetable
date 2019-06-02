@@ -24,7 +24,7 @@ def equal_time(time_first, time_second):
     return True
 
 
-class Room:
+class RoomTable:
 
     def __init__(self):
         self.tools = TimetableTools()
@@ -71,8 +71,8 @@ class Room:
         print("Generating PDF...")
 
         doc = SimpleDocTemplate(args[1], pagesize=letter)
-        pdfmetrics.registerFont(TTFont('Standard', 'font.ttf'))
-        pdfmetrics.registerFont(TTFont('Bold', 'font-bold.ttf'))
+        pdfmetrics.registerFont(TTFont('Standard', 'src/font.ttf'))
+        pdfmetrics.registerFont(TTFont('Bold', 'src/font-bold.ttf'))
         doc.leftMargin = 5
         styles = getSampleStyleSheet()
         style_h1 = ParagraphStyle(name='Heading1',
@@ -124,8 +124,8 @@ class Room:
                 elements.append(KeepTogether(Spacer(10, 20)))
             print("------------------------------------------")
 
-        doc.build(elements)
         try:
+            doc.build(elements)
             print("END, pdf is generated")
         except:
             print("Error while generating pdf, check correct of sheet")
