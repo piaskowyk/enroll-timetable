@@ -13,6 +13,7 @@ class SpreadsheetData:
     trainer_data = 0
     course_data = 0
     full_time_first_semester_event_data = 0
+    full_time_second_semester_event_data = 0
 
     def __init__(self, config, workbook):
         self.building_data = BuildingData()
@@ -22,5 +23,8 @@ class SpreadsheetData:
                                         self.department_data)
         self.course_data = CourseData()
         self.full_time_first_semester_event_data = FullTimeSemesterEventData(
-            config, workbook, 'fullTimeWinter', self.course_data,
+            config, workbook, 'fullTimeFirst', self.course_data,
+            self.department_data, self.trainer_data, self.room_data)
+        self.full_time_second_semester_event_data = FullTimeSemesterEventData(
+            config, workbook, 'fullTimeSecond', self.course_data,
             self.department_data, self.trainer_data, self.room_data)

@@ -16,9 +16,10 @@ class BuildingInfo:
 
 
 class BuildingData:
-    data = dict()
+    data = 0
 
     def __init__(self):
+        self.data = dict()
         pass
 
     def get_building_id(self, building_name, requester_data, requester_key):

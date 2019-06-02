@@ -16,9 +16,10 @@ class DepartmentInfo:
 
 
 class DepartmentData:
-    data = dict()
+    data = 0
 
     def __init__(self):
+        self.data = dict()
         pass
 
     def get_department_id(self, department_name, requester_data, requester_key):

@@ -63,9 +63,10 @@ class TrainerInfo:
 
 
 class TrainerData:
-    data = dict()
+    data = 0
 
     def __init__(self, config, workbook, department_data):
+        self.data = dict()
         trainer_data_importer = SpreadsheetDataImporter(config, workbook,
                                                         "trainers")
         cur_record = trainer_data_importer.load_next_record()

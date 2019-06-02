@@ -34,9 +34,10 @@ class RoomInfo:
 
 
 class RoomData:
-    data = dict()
+    data = 0
 
     def __init__(self, config, workbook, building_data):
+        self.data = dict()
         rooms_data_importer = SpreadsheetDataImporter(config, workbook, "rooms")
         cur_record = rooms_data_importer.load_next_record()
         while len(cur_record) > 0:

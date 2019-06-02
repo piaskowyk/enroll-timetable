@@ -43,11 +43,11 @@ class SpreadsheetDataImporter:
             if cell_value is not None:
                 not_null = True
             record[key] = cell_value
+        self.cur_record_id += 1
         if not not_null:
             record = dict()
             return record
         else:
-            self.cur_record_id += 1
             return record
 
     def finish(self):

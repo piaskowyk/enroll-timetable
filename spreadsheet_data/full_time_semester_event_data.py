@@ -86,17 +86,28 @@ class FullTimeSemesterEventInfo:
 
 
 class FullTimeSemesterEventData:
-    data = dict()
+    data = 0
 
     def __init__(self, config, workbook, semester, course_data, department_data,
                  trainer_data, room_data):
+        self.data = dict()
         event_data_importer = SpreadsheetDataImporter(config, workbook,
                                                       semester)
         cur_record = event_data_importer.load_next_record()
-        while len(cur_record) > 0:
-            cur_event = FullTimeSemesterEventInfo(cur_record, len(self.data),
-                                                  course_data, department_data,
-                                                  trainer_data, room_data,
-                                                  self)
-            self.data[cur_event.get_key()] = cur_event
+        null_records_to_stop = 20
+        cur_null_records_to_stop = null_records_to_stop
+        while cur_null_records_to_stop > 0:
+            if len(cur_record) > 0:
+                cur_null_records_to_stop = null_records_to_stop
+                if cur_record["course"] is not None:
+                    cur_event = FullTimeSemesterEventInfo(cur_record,
+                                                          len(self.data),
+                                                          course_data,
+                                                          department_data,
+                                                          trainer_data,
+                                                          room_data,
+                                                          self)
+                    self.data[cur_event.get_key()] = cur_event
+            else:
+                cur_null_records_to_stop -= 1
             cur_record = event_data_importer.load_next_record()

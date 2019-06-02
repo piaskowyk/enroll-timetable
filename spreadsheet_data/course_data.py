@@ -22,9 +22,10 @@ class CourseInfo:
 
 
 class CourseData:
-    data = dict()
+    data = 0
 
     def __init__(self):
+        self.data = dict()
         pass
 
     def get_course_id(self, studies, semester, course_name, elective_id,
