@@ -12,6 +12,7 @@ available_expressions = {
     "exit": {}
 }
 
+
 def search_completion_from_dict(current_expression, expr_dict):
     # print(current_expression)
     # print(expr_dict)
@@ -51,13 +52,18 @@ def complete_command(current_command):
     expected_flag = True
     cur_flag = None
     while len(rest_expr) > 0:
+        space_at_end = True
+        if len(rest_expr) == 1:
+            if current_command[-1] != ' ':
+                space_at_end = False
         if expected_flag:
             cur_flag = rest_expr[0]
-            if cur_flag in available_expressions[command]:
+            if cur_flag in available_expressions[command] and space_at_end:
                 expected_flag = False
         else:
             cur_key = rest_expr[0]
-            if cur_key in available_expressions[command][cur_flag]:
+            if cur_key in available_expressions[command][
+                cur_flag] and space_at_end:
                 expected_flag = True
                 cur_flag = None
         if len(rest_expr) == 1:
@@ -67,30 +73,31 @@ def complete_command(current_command):
     if expected_flag:
         if len(rest_expr) == 0:
             return search_completion_from_dict('',
-                                           available_expressions[command])
+                                               available_expressions[command])
         else:
             cur_expr = rest_expr[0]
+            if cur_expr[0] != '-':
+                cur_expr = ''
             return search_completion_from_dict(cur_expr,
-                                           available_expressions[command])
+                                               available_expressions[command])
     else:
         cur_expr = rest_expr[0]
         if cur_expr in available_expressions[command]:
             cur_expr = ''
-        # print (cur_expr, '\n', cur_flag)
         return search_completion_from_dict(cur_expr,
-                                       available_expressions[command][cur_flag])
-
+                                           available_expressions[command][
+                                               cur_flag])
 
 
 def longestSubstringFinder(string1, string2):
     answer = ""
     len1, len2 = len(string1), len(string2)
     for i in range(len1):
-        match = ""
-        for j in range(len2):
-            if (i + j < len1 and string1[i + j] == string2[j]):
-                match += string2[j]
+        if i < len2:
+            if string1[i] == string2[i]:
+                answer += string1[i]
             else:
-                if (len(match) > len(answer)): answer = match
-                match = ""
+                break
+        else:
+            break
     return answer
