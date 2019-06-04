@@ -1,10 +1,15 @@
 from spreadsheet_tools.sheet_data_importer import SpreadsheetDataImporter
 from spreadsheet_data.common_data import *
+from interface_tools.output_tools import *
 
 event_types = {'0': 'Undefined type of event',
                'W': 'Lecture',
                'C': 'Practice exercises',
-               'L': 'Laboratory exercises'}
+               'L': 'Laboratory exercises',
+               'E': 'Exam',
+               'P': 'Unknown1',
+               'D': 'Unknown2',
+               'OK': 'Final grade'}
 
 
 class FullTimeSemesterEventInfo:
@@ -99,7 +104,7 @@ class FullTimeSemesterEventData:
         while cur_null_records_to_stop > 0:
             if len(cur_record) > 0:
                 cur_null_records_to_stop = null_records_to_stop
-                if cur_record["course"] is not None:
+                if cur_record['course'] is not None:
                     cur_event = FullTimeSemesterEventInfo(cur_record,
                                                           len(self.data),
                                                           course_data,
@@ -107,6 +112,26 @@ class FullTimeSemesterEventData:
                                                           trainer_data,
                                                           room_data,
                                                           self)
+                    if cur_record['eventType'] not in event_types:
+                        show_warning(
+                            event_data_importer.get_last_record_info() +
+                            ': Event type is not valid.')
+                    if cur_event.trainer_id is None:
+                        show_error(
+                            event_data_importer.get_last_record_info() +
+                            ': Trainer ' + cur_record['trainer'] +
+                            ' not found.')
+                    if cur_event.room_id is None:
+                        show_error(
+                            event_data_importer.get_last_record_info() +
+                            ': Room \"' + cur_record['roomName'] +
+                            '\" not found.')
+                    if cur_record['day'] is None or \
+                            cur_record['startTime'] is None:
+                        show_warning(
+                            event_data_importer.get_last_record_info() +
+                            ': Event time is not set.')
+
                     self.data[cur_event.get_key()] = cur_event
             else:
                 cur_null_records_to_stop -= 1

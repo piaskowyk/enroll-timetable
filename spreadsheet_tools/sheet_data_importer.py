@@ -38,8 +38,11 @@ class SpreadsheetDataImporter:
             return record
         not_null = False
         for key, value in self.column_headers.items():
-            cell_value = self.sheet[
-                chr(value) + str(self.header_row + self.cur_record_id)].value
+            cell = self.sheet[
+                chr(value) + str(self.header_row + self.cur_record_id)]
+            cell_value = cell.value
+            if cell.font.strike:
+                cell_value = None
             if cell_value is not None:
                 not_null = True
             record[key] = cell_value
@@ -49,6 +52,11 @@ class SpreadsheetDataImporter:
             return record
         else:
             return record
+
+    def get_last_record_info(self):
+        return str(self.sheet.title) + ':' + \
+               str(self.header_row + self.cur_record_id - 1)
+        # return self.header_row + self.cur_record_id - 1
 
     def finish(self):
         self.sheet = 0

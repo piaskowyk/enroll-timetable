@@ -1,4 +1,5 @@
 from spreadsheet_tools.sheet_data_importer import SpreadsheetDataImporter
+from interface_tools.output_tools import *
 
 room_types = {'0': 'Undefined type of room',
               'W': 'Lecture room',
@@ -42,7 +43,16 @@ class RoomData:
         cur_record = rooms_data_importer.load_next_record()
         while len(cur_record) > 0:
             cur_room = RoomInfo(cur_record, building_data, self)
-            self.data[str(cur_record['buildingName']) + ":" +
+            if cur_record['roomName'] is None:
+                show_error(rooms_data_importer.get_last_record_info() +
+                           ': Room name is not set. ')
+            if cur_record['roomType'] not in room_types:
+                show_warning(rooms_data_importer.get_last_record_info() +
+                             ': Room type is not valid. ')
+            if cur_record['capacity'] is None:
+                show_weak_warning(rooms_data_importer.get_last_record_info() +
+                                  ': Room capacity not set. ')
+            self.data[str(cur_record['buildingName']) + ':' +
                       str(cur_room.name)] = cur_room
             cur_record = rooms_data_importer.load_next_record()
 
@@ -53,5 +63,6 @@ class RoomData:
             self.data[key].add_reference(requester_data, requester_key)
             return key
         else:
-            raise NameError(
-                'Romm ' + room_name + ' in ' + building_name + ' not found!\n')
+            return None
+            show_error('Room \"' + room_name + '\" in building \"' +
+                       building_name + '\" not found!')

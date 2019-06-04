@@ -1,5 +1,6 @@
 from spreadsheet_data.common_data import *
 from spreadsheet_tools.sheet_data_importer import SpreadsheetDataImporter
+from interface_tools.output_tools import *
 
 positions = dict()
 degrees = {'0': 'Undefined degree',
@@ -68,10 +69,16 @@ class TrainerData:
     def __init__(self, config, workbook, department_data):
         self.data = dict()
         trainer_data_importer = SpreadsheetDataImporter(config, workbook,
-                                                        "trainers")
+                                                        'trainers')
         cur_record = trainer_data_importer.load_next_record()
         while len(cur_record) > 0:
             cur_trainer = TrainerInfo(cur_record, department_data, self)
+            if len(cur_record['name'].split(' ')) != 2:
+                show_error(trainer_data_importer.get_last_record_info() +
+                           'Name of trainer is set in invalid format.')
+            # if cur_record['departmentName'] is None:
+            #     show_weak_warning(trainer_data_importer.get_last_record_info() +
+            #                       'Trainer\'s department name is not set.')
             self.data[str(cur_trainer.last_name) + ' ' + str(
                 cur_trainer.first_name)] = \
                 cur_trainer
@@ -84,7 +91,4 @@ class TrainerData:
             self.data[key].add_reference(reqester_data, requester_key)
             return key
         else:
-            return 0
-            # raise NameError(
-            #     'Trainer ' + first_name + ' ' + ''.join(
-            #         last_name) + ' not found!\n')
+            return None
