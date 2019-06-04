@@ -64,5 +64,3 @@ class RoomData:
             return key
         else:
             return None
-            show_error('Room \"' + room_name + '\" in building \"' +
-                       building_name + '\" not found!')

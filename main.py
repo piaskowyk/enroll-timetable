@@ -9,6 +9,8 @@ from commands.load import Load
 from commands.room_table import RoomTable
 from config_tools.configuration import Configuration
 from spreadsheet_data.spreadsheet_data import *
+from interface_tools.input_tools import *
+from interface_tools.command_completion_tools import *
 
 CURSOR_UP_ONE = '\x1b[1A'
 ERASE_LINE = '\x1b[2K'
@@ -27,11 +29,15 @@ help_command = Help()
 room_table_command = RoomTable()
 free_room_command = FreeRoom()
 
-#_workbook = None
-_workbook = load_workbook(filename='data/data.xlsx')#debugs
+# _workbook = None
+_workbook = load_workbook(filename='data/data.xlsx')  # debugs
 configuration = Configuration(filepath="config.json")
-#_spreadsheet_data = None
+# _spreadsheet_data = None
 spreadsheet_data = SpreadsheetData(configuration.data, _workbook)
+available_expressions["free-time-in-room"][
+    '-r'] = spreadsheet_data.room_data.data
+cmd_hist_file = open('commandHistory.txt', 'a+')
+user_command_getter = UserCommandGetter(cmd_hist_file)
 
 
 def set_spreadsheet_data(data):
@@ -41,16 +47,20 @@ def set_spreadsheet_data(data):
 
 command = {
     "load": lambda x: set_spreadsheet_data(Load.exec_command(x)),
-    "room-table": lambda x: room_table_command.exec_command(spreadsheet_data, x),
-    "free-room-in-time": lambda x: free_room_command.find_free_rooms_in_time(spreadsheet_data, x),
-    "free-time-in-room": lambda x: free_room_command.find_free_times_in_room(spreadsheet_data, x),
+    "room-table": lambda x: room_table_command.exec_command(spreadsheet_data,
+                                                            x),
+    "free-room-in-time": lambda x: free_room_command.find_free_rooms_in_time(
+        spreadsheet_data, x),
+    "free-time-in-room": lambda x: free_room_command.find_free_times_in_room(
+        spreadsheet_data, x),
     "help": lambda x: help_command.exec_command(x),
     "exit": lambda x: exit(0),
 }
 
 
 def input_mode():
-    args = input("> ").split() #debug
+    # args = input("> ").split() #debug
+    args = user_command_getter.get_user_command()
     # args = ["room-table", "./data/tmp.pdf"] #debug
     # args = ["free-room-in-time", "-d", "Pn", "-h", "12:50"] #debug
     # args = ["free-time-in-room", "-r", "D17:1.38"] #debug
@@ -69,7 +79,7 @@ def main():
 
     while True:
         input_mode()
-        return #debug
+        # return #debug
 
 
 if __name__ == "__main__":

@@ -11,3 +11,6 @@ def show_warning(args):
 def show_error(args):
     print('\033[38;2;255;0;0m       Error:\033[38;2;255;255;255m ', end='')
     print(args)
+
+def show_prompt():
+    print('\033[38;2;0;255;0m> \033[38;2;255;255;255m', end='')
