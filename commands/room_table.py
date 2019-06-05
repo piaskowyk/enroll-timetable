@@ -67,6 +67,7 @@ class RoomTable:
     def exec_command(self, spreadsheet_data, args):
         if len(args) < 2:
             print("You must insert output file name")
+            return
 
         print("Generating PDF...")
 

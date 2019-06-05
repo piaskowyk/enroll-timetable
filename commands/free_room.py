@@ -148,7 +148,7 @@ class FreeRoom:
             return
 
         room_name = self.args_val['room']
-        print(rooms_details.keys())
+        # print(rooms_details.keys())
         print(room_name)
         if room_name not in rooms_details.keys():
             print("This room not exist")

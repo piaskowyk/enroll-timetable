@@ -14,8 +14,6 @@ available_expressions = {
 
 
 def search_completion_from_dict(current_expression, expr_dict):
-    # print(current_expression)
-    # print(expr_dict)
     cmd_len = len(current_expression)
     found_key = None
     more_keys_found = False
@@ -49,6 +47,10 @@ def complete_command(current_command):
                                            available_expressions)
     rest_expr = current_command.split()[1:]
     command = current_command.split()[0]
+    if command not in available_expressions:
+        return ''
+    if len(rest_expr) == 0 and current_command[-1] != ' ':
+        return ' '
     expected_flag = True
     cur_flag = None
     while len(rest_expr) > 0:
