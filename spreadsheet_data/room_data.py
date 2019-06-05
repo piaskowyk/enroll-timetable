@@ -1,8 +1,7 @@
 from spreadsheet_tools.sheet_data_importer import SpreadsheetDataImporter
 from interface_tools.output_tools import *
 
-room_types = {'0': 'Undefined type of room',
-              'W': 'Lecture room',
+room_types = {'W': 'Lecture room',
               'C': 'Practice room',
               'L': 'Laboratory room'}
 

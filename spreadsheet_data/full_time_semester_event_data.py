@@ -2,8 +2,7 @@ from spreadsheet_tools.sheet_data_importer import SpreadsheetDataImporter
 from spreadsheet_data.common_data import *
 from interface_tools.output_tools import *
 
-event_types = {'0': 'Undefined type of event',
-               'W': 'Lecture',
+event_types = {'W': 'Lecture',
                'C': 'Practice exercises',
                'L': 'Laboratory exercises',
                'E': 'Exam',

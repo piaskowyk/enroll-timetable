@@ -3,8 +3,7 @@ from spreadsheet_tools.sheet_data_importer import SpreadsheetDataImporter
 from interface_tools.output_tools import *
 
 positions = dict()
-degrees = {'0': 'Undefined degree',
-           'dr hab.': 'Habilitated doctor',
+degrees = {'dr hab.': 'Habilitated doctor',
            'dr': 'Doctor',
            'inż.': 'Engineer',
            'mgr': 'Master\'s degree',

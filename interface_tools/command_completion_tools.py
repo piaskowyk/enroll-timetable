@@ -1,11 +1,14 @@
 from utils.timetabletools import TimetableTools
+from spreadsheet_data.room_data import *
 
 available_expressions = {
     "load": {},
     "room-table": {},
     "free-room-in-time": {
         '-d': TimetableTools.days_of_week_label,
-        '-h': TimetableTools.time_blocks
+        '-h': TimetableTools.time_blocks,
+        '-c': {},
+        '-t': room_types
     },
     "free-time-in-room": {},
     "help": {},
@@ -64,8 +67,9 @@ def complete_command(current_command):
                 expected_flag = False
         else:
             cur_key = rest_expr[0]
-            if cur_key in available_expressions[command][
-                cur_flag] and space_at_end:
+            if (cur_key in available_expressions[command][
+                cur_flag] or len(available_expressions[command][
+                                     cur_flag]) == 0) and space_at_end:
                 expected_flag = True
                 cur_flag = None
         if len(rest_expr) == 1:
@@ -84,11 +88,17 @@ def complete_command(current_command):
                                                available_expressions[command])
     else:
         cur_expr = rest_expr[0]
-        if cur_expr in available_expressions[command]:
-            cur_expr = ''
-        return search_completion_from_dict(cur_expr,
-                                           available_expressions[command][
-                                               cur_flag])
+        if len(available_expressions[command][cur_flag]) == 0:
+            if cur_expr in available_expressions[command]:
+                return ''
+            else:
+                return ' '
+        else:
+            if cur_expr in available_expressions[command]:
+                cur_expr = ''
+            return search_completion_from_dict(cur_expr,
+                                               available_expressions[command][
+                                                   cur_flag])
 
 
 def longestSubstringFinder(string1, string2):
