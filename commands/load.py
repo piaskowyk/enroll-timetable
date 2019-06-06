@@ -1,6 +1,7 @@
 from openpyxl import load_workbook
 
 from config_tools.configuration import Configuration
+from interface_tools.command_completion_tools import available_expressions
 from spreadsheet_data.spreadsheet_data import SpreadsheetData
 
 
@@ -13,5 +14,8 @@ class Load:
             return None
         _workbook = load_workbook(filename=args[1])
         configuration = Configuration(filepath="config.json")
+        data = SpreadsheetData(configuration.data, _workbook)
 
-        return SpreadsheetData(configuration.data, _workbook)
+        available_expressions['free']['-r'] = data.room_data.data
+
+        return data

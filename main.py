@@ -34,8 +34,8 @@ _workbook = load_workbook(filename='data/data.xlsx')  # debugs
 configuration = Configuration(filepath="config.json")
 # _spreadsheet_data = None
 spreadsheet_data = SpreadsheetData(configuration.data, _workbook)
-available_expressions["free-time-in-room"][
-    '-r'] = spreadsheet_data.room_data.data
+
+available_expressions["free"]['-r'] = spreadsheet_data.room_data.data
 cmd_hist_file = open('commandHistory.txt', 'a+')
 user_command_getter = UserCommandGetter(cmd_hist_file)
 
@@ -49,10 +49,7 @@ command = {
     "load": lambda x: set_spreadsheet_data(Load.exec_command(x)),
     "room-table": lambda x: room_table_command.exec_command(spreadsheet_data,
                                                             x),
-    "free-room-in-time": lambda x: free_room_command.find_free_rooms_in_time(
-        spreadsheet_data, x),
-    "free-time-in-room": lambda x: free_room_command.find_free_times_in_room(
-        spreadsheet_data, x),
+    "free": lambda x: free_room_command.exec_command(spreadsheet_data, x),
     "help": lambda x: help_command.exec_command(x),
     "exit": lambda x: exit(0),
 }

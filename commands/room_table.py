@@ -53,10 +53,8 @@ class RoomTable:
                 print("type:", event_types[event.event_type])
                 print("trainer_id:", event.trainer_id)
 
-                print("+")
-                print(event.event_time.get_string())
                 event_name = event.course_id
-                max_len = 30
+                max_len = 35
                 if len(event_name) > max_len:
                     index = max_len - (event_name[:max_len])[::-1].find(' ')
                     event_name = event_name[:index-1] + '\n' + event_name[index:]

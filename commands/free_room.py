@@ -33,15 +33,23 @@ class FreeRoom:
         self.args_val = {
             'day': None,
             'hour': None,
-
-            'room': None
+            'room': None,
+            'capacity': None,
+            'type': None
         }
         self.args = {
             '-d': 'day',
             '-h': 'hour',
-
-            '-r': 'room'
+            '-r': 'room',
+            '-c': 'capacity',
+            '-t': 'type'
         }
+
+    def exec_command(self, spreadsheet_data, args):
+        if self.args_val['room'] is not None:
+            self.find_free_times_in_room(spreadsheet_data, args)
+        else:
+            self.find_free_rooms_in_time(spreadsheet_data, args)
 
     def parse_args(self, args):
         for i, item in enumerate(args):
@@ -113,7 +121,17 @@ class FreeRoom:
 
         print("Free room at: day: " + d_name + " hour: " + h_name)
         for room_key, room in rooms_details.items():
-            is_free = True
+
+            print(spreadsheet_data.room_data.data[room_key].type)
+
+            if self.args_val['capacity'] is not None:
+                if spreadsheet_data.room_data.data[room_key].capacity < self.args_val['capacity']:
+                    continue
+
+            if self.args_val['type'] is not None:
+                if spreadsheet_data.room_data.data[room_key].type != self.args_val['type']:
+                    continue
+
             if self.args_val['day'] is not None:
                 day = room[self.args_val['day']]
                 if day is None:
@@ -153,6 +171,16 @@ class FreeRoom:
         if room_name not in rooms_details.keys():
             print("This room not exist")
             return
+
+        if self.args_val['capacity'] is not None:
+            if spreadsheet_data.room_data.data[room_name].capacity < self.args_val['capacity']:
+                print("This room is too small")
+                return
+
+        if self.args_val['type'] is not None:
+            if spreadsheet_data.room_data.data[room_name].type != self.args_val['type']:
+                print("This room have different type")
+                return
 
         room = rooms_details[room_name]
         for day_key, day_info in room.items():

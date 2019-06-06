@@ -54,3 +54,23 @@ room-table abc.pdf
 room-table abc.pdf
 exit
 room-table abc.pdf
+exit
+room-table abc.pdf
+exit
+exit
+exit
+exit
+free -r available_expressions['free']['-r']
+
+
+exit
+load data/data.xlsx
+load data/data.xlsx
+load data/data.xlsx
+exit
+free 
+exit
+free 
+exit
+free 
+exit
