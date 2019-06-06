@@ -1,3 +1,56 @@
 exit
 free-room-in-time -d Pn
 exit
+room-table abc.pdf
+room-table abc.pdf
+exit
+room-table abc.pdf
+room-table abc.pdf
+room-table abc.pdf
+exit
+room-table abc.pdf
+room-table abc.pdf
+room-table abc.pdf
+exit
+room-table abc.pdf
+exit
+room-table abc.pdf
+room-table abc.pdf
+room-table abc.pdf
+exit
+room-table abc.pdf
+exit
+room-table abc.pdf
+exit
+room-table abc.pdf
+exit
+room-table abc.pdf
+room-table abc.pdf
+exit
+room-table abc.pdf
+exit
+room-table abc.pdf
+exit
+exit
+room-table abc.pdf
+exit
+room-table abc.pdf
+exit
+room-table abc.pdf
+exit
+room-table abc.pdf
+exit
+room-table abc.pdf
+exit
+room-table abc.pdf
+exit
+room-table abc.pdf
+exit
+room-table abc.pdf
+room-table abc.pdf
+exit
+room-table abc.pdf
+room-table abc.pdf
+room-table abc.pdf
+exit
+room-table abc.pdf
