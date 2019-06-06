@@ -1,5 +1,7 @@
+from reportlab.graphics.shapes import Drawing, Line
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfgen import canvas
 
 from utils.timetabletools import TimetableTools
 from spreadsheet_data.full_time_semester_event_data import *
@@ -51,11 +53,14 @@ class RoomTable:
                 print("type:", event_types[event.event_type])
                 print("trainer_id:", event.trainer_id)
 
-                print("+")
-                print(event.event_time.get_string())
+                event_name = event.course_id
+                max_len = 35
+                if len(event_name) > max_len:
+                    index = max_len - (event_name[:max_len])[::-1].find(' ')
+                    event_name = event_name[:index-1] + '\n' + event_name[index:]
                 event_data = [
                     self.tools.time_blocks[event.event_time.get_string().split(' ')[1]],
-                    event.course_id,
+                    event_name,
                     event.week_name,
                     event_types[event.event_type],
                     event.trainer_id
@@ -74,19 +79,19 @@ class RoomTable:
         doc = SimpleDocTemplate(args[1], pagesize=letter)
         pdfmetrics.registerFont(TTFont('Standard', 'src/font.ttf'))
         pdfmetrics.registerFont(TTFont('Bold', 'src/font-bold.ttf'))
-        doc.leftMargin = 5
+        doc.leftMargin = 40
         styles = getSampleStyleSheet()
         style_h1 = ParagraphStyle(name='Heading1',
                                   fontName='Bold',
-                                  fontSize=18,
+                                  fontSize=14,
                                   leading=22,
                                   spaceAfter=2)
         style_h2 = ParagraphStyle(name='Heading2',
                                   fontName='Standard',
-                                  fontSize=15,
+                                  fontSize=12,
                                   leading=22,
                                   spaceAfter=1)
-        space = Spacer(1, 0.25 * inch)
+        space = Spacer(1, 0.20 * inch)
         table_style = TableStyle([
             ('FONT', (0, 0), (-1, -1), 'Standard'),
             ('ALIGN', (0, 0), (-2, 0), 'CENTER'),
@@ -99,7 +104,10 @@ class RoomTable:
 
         for room_key, room in spreadsheet_data.room_data.data.items():
             print("Sala:", str(room.building_id) + ' - ' + str(room.name) + "\n")
+            line = Drawing(520, 10)
+            line.add(Line(0, 7, 520, 7))
             elements.append(Paragraph("Sala: " + str(room.building_id) + ' - ' + str(room.name), style_h1))
+            elements.append(line)
 
             for day in self.tools.days_of_week[0:5]:
                 print(self.tools.days_of_week_label[day])

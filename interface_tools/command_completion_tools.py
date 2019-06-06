@@ -4,13 +4,14 @@ from spreadsheet_data.room_data import *
 available_expressions = {
     "load": {},
     "room-table": {},
-    "free-room-in-time": {
+    "free": {
         '-d': TimetableTools.days_of_week_label,
         '-h': TimetableTools.time_blocks,
         '-c': {},
-        '-t': room_types
+        '-t': room_types,
+        '-r': {}
     },
-    "free-time-in-room": {},
+
     "help": {},
     "exit": {}
 }

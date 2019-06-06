@@ -1,0 +1,123 @@
+exit
+free-room-in-time -d Pn
+exit
+room-table abc.pdf
+room-table abc.pdf
+exit
+room-table abc.pdf
+room-table abc.pdf
+room-table abc.pdf
+exit
+room-table abc.pdf
+room-table abc.pdf
+room-table abc.pdf
+exit
+room-table abc.pdf
+exit
+room-table abc.pdf
+room-table abc.pdf
+room-table abc.pdf
+exit
+room-table abc.pdf
+exit
+room-table abc.pdf
+exit
+room-table abc.pdf
+exit
+room-table abc.pdf
+room-table abc.pdf
+exit
+room-table abc.pdf
+exit
+room-table abc.pdf
+exit
+exit
+room-table abc.pdf
+exit
+room-table abc.pdf
+exit
+room-table abc.pdf
+exit
+room-table abc.pdf
+exit
+room-table abc.pdf
+exit
+room-table abc.pdf
+exit
+room-table abc.pdf
+exit
+room-table abc.pdf
+room-table abc.pdf
+exit
+room-table abc.pdf
+room-table abc.pdf
+room-table abc.pdf
+exit
+room-table abc.pdf
+exit
+room-table abc.pdf
+exit
+exit
+exit
+exit
+free -r available_expressions['free']['-r']
+
+
+exit
+load data/data.xlsx
+load data/data.xlsx
+load data/data.xlsx
+exit
+free 
+exit
+free 
+exit
+free 
+exit
+free -r D171.38
+free -r D17:1.38
+free -r D17:1.38
+exit
+free -r D17:1.38
+exit
+free -r D17:1.38
+exit
+free -r D17:1.38
+free -r D17:1.38 -r D17:4.31
+exit
+free -r D17:1.38 -r D17:4.31
+exit
+free -r D17:1.38 -r D17:4.31
+
+exit
+free -r D17:1.38 -r D17:4.31
+free -r D17:1.38 -r D17:4.31
+exit
+free -d Pn -d Wt
+exit
+exit
+free -d Pn -d Wt
+free -d Pn -d Wt
+free -d Pn -d Wt
+free -d Pn -d Wt
+free -d Pn -d Wt
+free -d Pn -d Wt
+free -d Pn -d Wt
+free -d Pn -d Wt
+exit
+exit
+free -d Pn -d Wt
+exit
+free -d Pn -d Wt
+exit
+free -d Pn -d Wt
+exit
+free -d Pn -d Wt
+exit
+free -d Pn -d Wt
+exit
+free -d Pn -d Wt
+exit
+free -d Pn -d Wt
+free -h 8:00 -h 11:15 
+exit
