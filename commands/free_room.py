@@ -31,8 +31,8 @@ class FreeRoom:
         self.room_events = None
         self.data_id = None
         self.args_val = {
-            'day': None,
-            'hour': None,
+            'day': [],
+            'hour': [],
             'room': [],
             'capacity': None,
             'type': None
@@ -45,13 +45,15 @@ class FreeRoom:
             '-t': 'type'
         }
         self.args_can_many = {
-            "-r"
+            "-r",
+            "-d",
+            "-h"
         }
 
     def exec_command(self, spreadsheet_data, args):
         self.parse_args(args)
         rooms_details = self.get_room_event_list(spreadsheet_data)
-
+        print(rooms_details)
         print("Free room")
         print("day:", self.args_val['day'])
         print("hour:", self.args_val['hour'])
@@ -60,26 +62,29 @@ class FreeRoom:
         print("type:", self.args_val['type'])
         print("--------------------------")
 
-        if self.args_val['hour'] is not None \
-                and self.args_val['hour'] not in self.tools.time_blocks.keys():
-            print("Invalid time format")
-            return
-
-        if self.args_val['day'] is not None \
-                and self.args_val['day'] not in self.tools.days_of_week_label.keys():
-            print("Invalid day format")
-            return
-
         if len(self.args_val['room']) > 0:
-            room_name = self.args_val['room']
-            for item in room_name:
+            rooms_name = self.args_val['room']
+            for item in rooms_name:
                 if item not in rooms_details.keys():
                     print("This room not exist,", item)
                     return
             rooms_details = {key: room for key, room in rooms_details.items() if key in self.args_val['room']}
 
+        if len(self.args_val['day']) > 0:
+            days = self.args_val['day']
+            for item in days:
+                if item not in self.tools.days_of_week_label.keys():
+                    print("This day not exist,", item)
+                    return
+
+        if len(self.args_val['hour']) > 0:
+            hours = self.args_val['hour']
+            for item in hours:
+                if item not in self.tools.time_blocks.keys():
+                    print("Invalid time format", item)
+                    return
+
         for room_key, room in rooms_details.items():
-            print(spreadsheet_data.room_data.data[room_key].type)
 
             if self.args_val['capacity'] is not None:
                 if spreadsheet_data.room_data.data[room_key].capacity < self.args_val['capacity']:
@@ -89,26 +94,33 @@ class FreeRoom:
                 if spreadsheet_data.room_data.data[room_key].type != self.args_val['type']:
                     continue
 
-            if self.args_val['day'] is not None:
-                day = room[self.args_val['day']]
-                if day is None:
-                    continue
+            print("Room", room_key)
 
-                if self.args_val['hour'] is not None:
-                    if day[self.args_val['hour']] is None:
-                        print("Free room: ", room_key)
-                else:
-                    for key, event in room[self.args_val['day']].items():
-                        if event is None:
-                            print("Free room: " + room_key + " " + key)
+            if len(self.args_val['day']) > 0:
+                for item in self.args_val['day']:
+                    day = room[item]
+                    if day is None:
+                        continue
+
+                    print("Day", item)
+
+                    if len(self.args_val['hour']) > 0:
+                        for hour in self.args_val['hour']:
+                            if day[hour] is None:
+                                print("Free room: ", room_key, hour)
+                    else:
+                        for key, event in room[item].items():
+                            if event is None:
+                                print("Free room: " + room_key + " " + key)
             else:
                 for day_key, day_info in room.items():
                     if day_info is None:
                         continue
 
-                    if self.args_val['hour'] is not None:
-                        if day_info[self.args_val['hour']] is None:
-                            print("Free room: " + room_key + " " + day_key)
+                    if len(self.args_val['hour']) > 0:
+                        for hour in self.args_val['hour']:
+                            if day_info[hour] is None:
+                                print("Free room: " + room_key + " " + day_key, hour)
                     else:
                         for key, event in day_info.items():
                             if event is None:
@@ -119,7 +131,6 @@ class FreeRoom:
             if item in self.args.keys() and i + 1 < len(args):
                 if item in self.args_can_many:
                     self.args_val[self.args[item]].append(args[i + 1])
-                    print(self.args_val[self.args[item]])
                 else:
                     self.args_val[self.args[item]] = args[i + 1]
 

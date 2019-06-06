@@ -92,3 +92,32 @@ free -r D17:1.38 -r D17:4.31
 exit
 free -r D17:1.38 -r D17:4.31
 free -r D17:1.38 -r D17:4.31
+exit
+free -d Pn -d Wt
+exit
+exit
+free -d Pn -d Wt
+free -d Pn -d Wt
+free -d Pn -d Wt
+free -d Pn -d Wt
+free -d Pn -d Wt
+free -d Pn -d Wt
+free -d Pn -d Wt
+free -d Pn -d Wt
+exit
+exit
+free -d Pn -d Wt
+exit
+free -d Pn -d Wt
+exit
+free -d Pn -d Wt
+exit
+free -d Pn -d Wt
+exit
+free -d Pn -d Wt
+exit
+free -d Pn -d Wt
+exit
+free -d Pn -d Wt
+free -h 8:00 -h 11:15 
+exit
