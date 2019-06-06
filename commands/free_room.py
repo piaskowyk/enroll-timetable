@@ -126,6 +126,14 @@ class FreeRoom:
                 for key_hour, item_hour in item_day.items():
                     if item_hour is None:
                         print("Free room", room_key, key_day, key_hour)
+                    else:
+                        # check exception week A or B
+                        if len(item_hour) > 1:
+                            continue
+                        if item_hour[0][2] is "A":
+                            print("Free room", room_key, key_day, key_hour, "week B")
+                        elif item_hour[0][2] is "B":
+                            print("Free room", room_key, key_day, key_hour, "week A")
 
     def parse_args(self, args):
         self.args_val = {
@@ -152,13 +160,22 @@ class FreeRoom:
 
             if day == event.day_name:
                 time_start = event.event_time.get_string().split(' ')[1]
-                event_data[time_start] = [
-                    time_start,
-                    event.course_id,
-                    event.week_name,
-                    event.event_type,
-                    event.trainer_id
-                ]
+                if time_start in event_data.keys():
+                    event_data[time_start].append([
+                        time_start,
+                        event.course_id,
+                        event.week_name,
+                        event.event_type,
+                        event.trainer_id
+                    ])
+                else:
+                    event_data[time_start] = [[
+                        time_start,
+                        event.course_id,
+                        event.week_name,
+                        event.event_type,
+                        event.trainer_id
+                    ]]
 
         for time_key in self.tools.time_blocks.keys():
             if time_key not in event_data.keys():
