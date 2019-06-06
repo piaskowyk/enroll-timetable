@@ -126,3 +126,33 @@ exit
 room-table tmp.pdf
 exit
 room-table tmp.pdf
+free -d Pt
+free -d Pt -h 8:00
+exit
+free -r D17:4.23
+free -r D10:123
+exit
+free -r D10:123
+exit
+free -r D10:123
+exit
+free -r D17:4.23
+exit
+free -r D17:4.23
+exit
+free -r D10:123
+exit
+free -r D10:123
+exit
+free -r D10:123
+exit
+free -r D10:123
+exit
+free -r D10:123
+free -r D10:123
+exit
+free -r D10:123
+exit
+free -r D10:123
+exit
+free -r D10:123
