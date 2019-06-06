@@ -74,3 +74,21 @@ free
 exit
 free 
 exit
+free -r D171.38
+free -r D17:1.38
+free -r D17:1.38
+exit
+free -r D17:1.38
+exit
+free -r D17:1.38
+exit
+free -r D17:1.38
+free -r D17:1.38 -r D17:4.31
+exit
+free -r D17:1.38 -r D17:4.31
+exit
+free -r D17:1.38 -r D17:4.31
+
+exit
+free -r D17:1.38 -r D17:4.31
+free -r D17:1.38 -r D17:4.31
