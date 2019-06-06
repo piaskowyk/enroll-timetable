@@ -53,7 +53,7 @@ class FreeRoom:
     def exec_command(self, spreadsheet_data, args):
         self.parse_args(args)
         rooms_details = self.get_room_event_list(spreadsheet_data)
-        print(rooms_details)
+        # print(rooms_details)
         print("Free room")
         print("day:", self.args_val['day'])
         print("hour:", self.args_val['hour'])

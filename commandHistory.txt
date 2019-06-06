@@ -121,3 +121,8 @@ exit
 free -d Pn -d Wt
 free -h 8:00 -h 11:15 
 exit
+room-table tmp.pdf
+exit
+room-table tmp.pdf
+exit
+room-table tmp.pdf

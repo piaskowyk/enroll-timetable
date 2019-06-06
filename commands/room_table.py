@@ -30,17 +30,18 @@ class RoomTable:
 
     def __init__(self):
         self.tools = TimetableTools()
-        self.table_header = ['Czas', 'Przedmiot', 'Typ', 'Typ2', 'Prowadzący']
+        self.table_header = ['Czas', 'Przedmiot', 'Tydzień', 'Typ wydarzenia', 'Prowadzący']
 
     def get_empty_tab(self):
         result = [self.table_header]
-        for time_block in self.tools.time_blocks:
-            result.append([self.tools.time_blocks[time_block], '', '', '', ''])
+        return result
+        # for time_block in self.tools.time_blocks:
+        #     result.append([self.tools.time_blocks[time_block], '', '', '', ''])
 
         return result
 
     def get_room_event_by_day(self, day, time_block, room, data_id, semester_data):
-        event_data = None
+        event_data = []
         for event_id in room.referenced_by[data_id]:
             event = semester_data[event_id]
 
@@ -58,14 +59,14 @@ class RoomTable:
                 if len(event_name) > max_len:
                     index = max_len - (event_name[:max_len])[::-1].find(' ')
                     event_name = event_name[:index-1] + '\n' + event_name[index:]
-                event_data = [
+                event_data.append([
                     self.tools.time_blocks[event.event_time.get_string().split(' ')[1]],
                     event_name,
                     event.week_name,
                     event_types[event.event_type],
                     event.trainer_id
-                ]
-                break
+                ])
+                # break
 
         return event_data
 
@@ -120,9 +121,11 @@ class RoomTable:
                 if data_id in room.referenced_by:
                     for time_block in self.tools.time_blocks:
                         result = self.get_room_event_by_day(day, time_block, room, data_id, semester_data)
-                        if result is None:
+                        if len(result) == 0:
                             result = [self.tools.time_blocks[time_block], '', '', '', '']
-                        event_data.append(result)
+                        else:
+                            for item in result:
+                                event_data.append(item)
 
                 if len(event_data) <= 1:
                     event_data = self.get_empty_tab()
