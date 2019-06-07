@@ -36,7 +36,8 @@ _workbook = None
 spreadsheet_data = None
 sheet = Path(configuration.data['defaults_value']['path_to_sheet'])
 if sheet.is_file():
-    _workbook = load_workbook(configuration['defaults_value']['path_to_sheet'])  # debugs
+    _workbook = load_workbook(configuration.data['defaults_value'][
+                                  'path_to_sheet'])  # debugs
     spreadsheet_data = SpreadsheetData(configuration.data, _workbook)
     available_expressions["free"]['-r'] = spreadsheet_data.room_data.data
 else:
@@ -66,7 +67,8 @@ def input_mode():
     args = user_command_getter.get_user_command()
     # args = ["free", "-t", "W", "-c", "100", "-r", "D17:1.38", "-r", "D17:1.18" ]
     # args = input()
-    if spreadsheet_data is None:
+    if spreadsheet_data is None and len(args) > 0 and args[0] != 'exit' and \
+            args[0] != 'load':
         show_warning("First load data")
         return
 
