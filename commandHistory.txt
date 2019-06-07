@@ -187,3 +187,57 @@ free -t W -c 100 -r D17:1.38 -r D17:1.18
 exit
 free -t W -c 100 -r D17:1.38 -r D17:1.18
 exit
+load data/data_.xlsx
+ls
+free -t W -c 100 -r D17:1.38 -r D17:1.18
+load data/data_.xlsx
+free -t W -c 100 -r D17:1.38 -r D17:1.18
+load data/data_.xlsx
+free -t W -c 100 -r D17:1.38 -r D17:1.18
+exit
+exit
+free -t W -c 100 -r D17:1.38 -r D17:1.18
+free -t W -c 100 -r D17:1.38 -r D17:1.18
+free -t W -c 100 -r D17:1.38 -r D17:1.18
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+exit
