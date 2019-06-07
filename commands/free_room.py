@@ -53,7 +53,6 @@ class FreeRoom:
     def exec_command(self, spreadsheet_data, args):
         self.parse_args(args)
         rooms_details = self.get_room_event_list(spreadsheet_data)
-        # print(rooms_details)
 
         print("Free room")
         print("day:", self.args_val['day'])
@@ -95,11 +94,13 @@ class FreeRoom:
         # iterating over each room
         for room_key, room in rooms_details.items():
 
-            if self.args_val['capacity'] is not None:
-                if spreadsheet_data.room_data.data[room_key].capacity < self.args_val['capacity']:
+            if self.args_val['capacity'] is not None \
+                    and spreadsheet_data.room_data.data[room_key].capacity is not None:
+                if spreadsheet_data.room_data.data[room_key].capacity < int(self.args_val['capacity']):
                     continue
 
-            if self.args_val['type'] is not None:
+            if self.args_val['type'] is not None\
+                    and spreadsheet_data.room_data.data[room_key].type is not None:
                 if spreadsheet_data.room_data.data[room_key].type != self.args_val['type']:
                     continue
 

@@ -156,3 +156,34 @@ exit
 free -r D10:123
 exit
 free -r D10:123
+exit
+room-table tmp.pdf
+help
+room-table tmp.pdf
+free -d Cz -r D17:1.38 
+free -d Cz -r D17:1.38 -d Pn
+free -d Cz -r D17:1.18 -d Pn
+d17
+1/0
+pies
+mleko
+room-table 
+room-table free 
+exit
+free -r D17:1.38
+
+free -c 10
+free -c 10
+free -t
+free -t
+free -t L
+free -t W
+free -t W
+free -t W -c 100 -r D17:1.38 -r D17:10:18
+free -t W -c 100 -r D17:1.38 -r D17:10.18
+free -t W -c 100 -r D17:1.38 -r D17:1.18
+free -t W -c 100 -r D17:1.38 -r D17:1.18
+free -t W -c 100 -r D17:1.38 -r D17:1.18
+exit
+free -t W -c 100 -r D17:1.38 -r D17:1.18
+exit
