@@ -57,10 +57,13 @@ command = {
 
 def input_mode():
     # args = input("> ").split() #debug
-    args = user_command_getter.get_user_command()
+    # args = user_command_getter.get_user_command()
     # args = ["room-table", "./data/tmp.pdf"] #debug
     # args = ["free-room-in-time", "-d", "Pn", "-h", "12:50"] #debug
     # args = ["free-time-in-room", "-r", "D17:1.38"] #debug
+    # args = ["free", "-r", "D10:123"] #debug
+    # args = ["free", "-r", "D17:4.23"] #debug
+    args = ["free", "-r", "D17:4.30"] #debug
     if len(args) < 1:
         print("unknown command")
     else:
