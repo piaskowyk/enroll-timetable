@@ -11,6 +11,7 @@ from config_tools.configuration import Configuration
 from spreadsheet_data.spreadsheet_data import *
 from interface_tools.input_tools import *
 from interface_tools.command_completion_tools import *
+from pathlib import Path
 
 CURSOR_UP_ONE = '\x1b[1A'
 ERASE_LINE = '\x1b[2K'
@@ -29,20 +30,26 @@ help_command = Help()
 room_table_command = RoomTable()
 free_room_command = FreeRoom()
 
-# _workbook = None
-_workbook = load_workbook(filename='data/data.xlsx')  # debugs
 configuration = Configuration(filepath="config.json")
-# _spreadsheet_data = None
-spreadsheet_data = SpreadsheetData(configuration.data, _workbook)
 
-available_expressions["free"]['-r'] = spreadsheet_data.room_data.data
+_workbook = None
+spreadsheet_data = None
+sheet = Path(configuration.data['defaults_value']['path_to_sheet'])
+if sheet.is_file():
+    _workbook = load_workbook(configuration['defaults_value']['path_to_sheet'])  # debugs
+    spreadsheet_data = SpreadsheetData(configuration.data, _workbook)
+    available_expressions["free"]['-r'] = spreadsheet_data.room_data.data
+else:
+    show_warning("First load data")
+
 cmd_hist_file = open('commandHistory.txt', 'a+')
 user_command_getter = UserCommandGetter(cmd_hist_file)
 
 
 def set_spreadsheet_data(data):
-    global _spreadsheet_data
-    _spreadsheet_data = data
+    global spreadsheet_data
+    spreadsheet_data = data
+    available_expressions["free"]['-r'] = spreadsheet_data.room_data.data
 
 
 command = {
@@ -56,14 +63,13 @@ command = {
 
 
 def input_mode():
-    # args = input("> ").split() #debug
     args = user_command_getter.get_user_command()
-    # args = ["room-table", "./data/tmp.pdf"] #debug
-    # args = ["free-room-in-time", "-d", "Pn", "-h", "12:50"] #debug
-    # args = ["free-time-in-room", "-r", "D17:1.38"] #debug
-    # args = ["free", "-r", "D10:123"] #debug
-    # args = ["free", "-r", "D17:4.23"] #debug
-    # args = ["free", "-r", "D17:4.30"] #debug
+    # args = ["free", "-t", "W", "-c", "100", "-r", "D17:1.38", "-r", "D17:1.18" ]
+    # args = input()
+    if spreadsheet_data is None:
+        show_warning("First load data")
+        return
+
     if len(args) < 1:
         print("unknown command")
     else:

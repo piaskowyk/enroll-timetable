@@ -89,5 +89,8 @@
         "comments": "uwagi"
       }
     }
+  },
+  "defaults_value": {
+    "path_to_sheet": "data/data.xlsx"
   }
 }
