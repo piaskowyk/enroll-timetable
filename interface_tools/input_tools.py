@@ -2,7 +2,10 @@ from interface_tools.getch import _Getch
 from interface_tools.output_tools import *
 from interface_tools.command_completion_tools import *
 import sys
-
+import os
+tty_rows, tty_columns = os.popen('stty size', 'r').read().split()
+tty_rows = int(tty_rows)
+tty_columns = int(tty_columns)
 
 class UserCommandGetter:
     getch = None
@@ -68,7 +71,7 @@ class UserCommandGetter:
         return self.user_command.split()
 
     def get_next_char(self):
-        print('\r', ' ' * 80, '\r', end='')
+        print('\r', ' ' * (tty_columns-2), '\r', end='')
         show_prompt()
         print(self.user_command, end='')
         print((len(self.user_command) - self.cursor_pos) * '\b', end='')

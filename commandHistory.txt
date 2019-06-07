@@ -156,3 +156,5 @@ exit
 free -r D10:123
 exit
 free -r D10:123
+exit
+exit
