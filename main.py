@@ -1,6 +1,3 @@
-import sys
-import time
-
 from openpyxl import load_workbook
 
 from commands.free_room import FreeRoom
@@ -34,6 +31,8 @@ configuration = Configuration(filepath="config.json")
 
 _workbook = None
 spreadsheet_data = None
+
+# load sheet from default location (config.json)
 sheet = Path(configuration.data['defaults_value']['path_to_sheet'])
 if sheet.is_file():
     _workbook = load_workbook(configuration.data['defaults_value'][
@@ -46,13 +45,14 @@ else:
 cmd_hist_file = open('commandHistory.txt', 'a+')
 user_command_getter = UserCommandGetter(cmd_hist_file)
 
-
+# set sheet data and configuration
 def set_spreadsheet_data(data):
     global spreadsheet_data
     spreadsheet_data = data
     available_expressions["free"]['-r'] = spreadsheet_data.room_data.data
 
 
+# program commands
 command = {
     "load": lambda x: set_spreadsheet_data(Load.exec_command(x)),
     "room-table": lambda x: room_table_command.exec_command(spreadsheet_data,
@@ -64,9 +64,8 @@ command = {
 
 
 def input_mode():
+    # read user input
     args = user_command_getter.get_user_command()
-    # args = ["free", "-t", "W", "-c", "100", "-r", "D17:1.38", "-r", "D17:1.18" ]
-    # args = input()
     if spreadsheet_data is None and len(args) > 0 and args[0] != 'exit' and \
             args[0] != 'load':
         show_warning("First load data")
@@ -76,6 +75,7 @@ def input_mode():
         print("unknown command")
     else:
         if args[0] in command:
+            # execute inserted command
             command[args[0]](args)
         else:
             print("unknown command")
@@ -87,7 +87,6 @@ def main():
 
     while True:
         input_mode()
-        # return #debug
 
 
 if __name__ == "__main__":

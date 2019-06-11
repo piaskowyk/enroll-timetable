@@ -1,3 +1,4 @@
+# some necessary data to analyzation data in sheet
 class TimetableTools:
 
     days_of_week_label = {

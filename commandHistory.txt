@@ -18,3 +18,24 @@ help
 free -r D17:1.38
 free -d Cz -h 16:15 -t W -c 200
 exit
+help
+exit
+help
+exit
+help
+exit
+help
+help
+exit
+help
+exit
+help
+exit
+help
+free -r D17:1.38
+free -r D17:1.38 -r D17:1.18 -d Pn -d Pt
+free -r D17:1.38 -r D17:1.18 -d Pn -d Pt -h 8:00 
+free -r D17:1.38 -r D17:1.18 -d Pn -d Pt -h 8:00 -h 11:15 
+free -r D17:1.38 -r D17:1.18 -d Pn -d Pt -h 8:00 -h 11:15 -c 50
+exit
+help 
