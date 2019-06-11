@@ -1,6 +1,7 @@
 from utils.timetabletools import TimetableTools
 
 
+# check equal time format
 def equal_time(time_first, time_second):
     if time_first is '' or time_second is '':
         return False
@@ -30,6 +31,8 @@ class FreeRoom:
         self.tools = TimetableTools()
         self.room_events = None
         self.data_id = None
+
+        # container for arguments
         self.args_val = {
             'day': [],
             'hour': [],
@@ -37,6 +40,8 @@ class FreeRoom:
             'capacity': None,
             'type': None
         }
+
+        # acceptable arguments
         self.args = {
             '-d': 'day',
             '-h': 'hour',
@@ -44,6 +49,8 @@ class FreeRoom:
             '-c': 'capacity',
             '-t': 'type',
         }
+
+        # list of arguments whose can be list
         self.args_can_many = {
             "-r",
             "-d",
@@ -136,6 +143,7 @@ class FreeRoom:
                         elif item_hour[0][2] is "B":
                             print("Free room", room_key, key_day, key_hour, "week A")
 
+    # parsing input arguments
     def parse_args(self, args):
         self.args_val = {
             'day': [],
@@ -152,6 +160,7 @@ class FreeRoom:
                 else:
                     self.args_val[self.args[item]] = args[i + 1]
 
+    # get all event in one day for room
     def get_room_event_by_day(self, day, room, data_id, semester_data):
         event_data = dict()
         for event_id in room.referenced_by[data_id]:
@@ -187,6 +196,7 @@ class FreeRoom:
     def get_empty_hour_dict(self):
         return {key: None for key in self.tools.time_blocks.keys()}
 
+    # get events for any room
     def get_room_event_list(self, spreadsheet_data):
         if self.room_events is not None and id(spreadsheet_data) is self.data_id:
             return self.room_events
