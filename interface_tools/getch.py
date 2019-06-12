@@ -1,6 +1,5 @@
 class _Getch:
-    """Gets a single character from standard input.  Does not echo to the
-screen."""
+    # class of character getter is used to receiving pressed keys from keyboard
     def __init__(self):
         self.impl = _GetchUnix()
 
@@ -8,6 +7,8 @@ screen."""
 
 
 class _GetchUnix:
+    # class of character getter version for UNIX
+
     def __init__(self):
         pass
 

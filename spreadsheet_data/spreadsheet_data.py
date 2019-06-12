@@ -7,15 +7,12 @@ from spreadsheet_data.full_time_semester_event_data import *
 
 
 class SpreadsheetData:
-    building_data = 0
-    room_data = 0
-    department_data = 0
-    trainer_data = 0
-    course_data = 0
-    full_time_first_semester_event_data = 0
-    full_time_second_semester_event_data = 0
+    # class of spreadsheet data; object of this class represents one database
+    # instance and it contains all needed tables
 
+    # builds database basics on provided configuration and workbook
     def __init__(self, config, workbook):
+        # creates particular tables in the right order
         self.building_data = BuildingData()
         self.room_data = RoomData(config, workbook, self.building_data)
         self.department_data = DepartmentData()

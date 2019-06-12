@@ -31,14 +31,16 @@ class RoomTable:
 
     def __init__(self):
         self.tools = TimetableTools()
-        self.table_header = ['Czas', 'Przedmiot', 'Tydzień', 'Typ wydarzenia', 'Prowadzący']
+        self.table_header = ['Czas', 'Przedmiot', 'Tydzień', 'Typ wydarzenia',
+                             'Prowadzący']
 
     def get_empty_tab(self):
         result = [self.table_header]
         return result
 
     # collect data about occupancy in one time block in on day
-    def get_room_event_by_day(self, day, time_block, room, data_id, semester_data):
+    def get_room_event_by_day(self, day, time_block, room, data_id,
+                              semester_data):
         event_data = []
         for event_id in room.referenced_by[data_id]:
             event = semester_data[event_id]
@@ -58,9 +60,11 @@ class RoomTable:
                 max_len = 35
                 if len(event_name) > max_len:
                     index = max_len - (event_name[:max_len])[::-1].find(' ')
-                    event_name = event_name[:index-1] + '\n' + event_name[index:]
+                    event_name = event_name[:index - 1] + '\n' + event_name[
+                                                                 index:]
                 event_data.append([
-                    self.tools.time_blocks[event.event_time.get_string().split(' ')[1]],
+                    self.tools.time_blocks[
+                        event.event_time.get_string().split(' ')[1]],
                     event_name,
                     event.week_name,
                     event_types[event.event_type],
@@ -107,18 +111,23 @@ class RoomTable:
 
         # iterate over any room
         for room_key, room in spreadsheet_data.room_data.data.items():
-            print("Sala:", str(room.building_id) + ' - ' + str(room.name) + "\n")
+            print("Sala:",
+                  str(room.building_id) + ' - ' + str(room.name) + "\n")
             line = Drawing(520, 10)
             line.add(Line(0, 7, 520, 7))
-            elements.append(Paragraph("Sala: " + str(room.building_id) + ' - ' + str(room.name), style_h1))
+            elements.append(Paragraph(
+                "Sala: " + str(room.building_id) + ' - ' + str(room.name),
+                style_h1))
             elements.append(line)
 
             # for any room check occupancy for any day
             for day in self.tools.days_of_week[0:5]:
                 print(self.tools.days_of_week_label[day])
-                elements.append(Paragraph(self.tools.days_of_week_label[day], style_h2))
+                elements.append(
+                    Paragraph(self.tools.days_of_week_label[day], style_h2))
 
-                data_id = id(spreadsheet_data.full_time_first_semester_event_data)
+                data_id = id(
+                    spreadsheet_data.full_time_first_semester_event_data)
                 semester_data = spreadsheet_data.full_time_first_semester_event_data.data
 
                 event_data = [self.table_header]
@@ -126,9 +135,12 @@ class RoomTable:
                 # for any day check occupancy in any time block
                 if data_id in room.referenced_by:
                     for time_block in self.tools.time_blocks:
-                        result = self.get_room_event_by_day(day, time_block, room, data_id, semester_data)
+                        result = self.get_room_event_by_day(day, time_block,
+                                                            room, data_id,
+                                                            semester_data)
                         if len(result) == 0:
-                            result = [self.tools.time_blocks[time_block], '', '', '', '']
+                            result = [self.tools.time_blocks[time_block], '',
+                                      '', '', '']
                         else:
                             for item in result:
                                 event_data.append(item)

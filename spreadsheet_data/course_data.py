@@ -1,9 +1,5 @@
 class CourseInfo:
-    studies = ''
-    semester = ''
-    name = ''
-    elective_id = ''
-    referenced_by = dict()
+    # class for one course record
 
     def __init__(self, studies, semester, name, elective_id):
         self.referenced_by = dict()
@@ -12,9 +8,12 @@ class CourseInfo:
         self.name = name
         self.elective_id = elective_id
 
+    # returns primary key
     def get_key(self):
         return str(self.name)
 
+    # remember object, that references to this record, from particular data
+    # table
     def add_reference(self, requester_data, requester_key):
         if id(requester_data) not in self.referenced_by:
             self.referenced_by[id(requester_data)] = []
@@ -22,12 +21,13 @@ class CourseInfo:
 
 
 class CourseData:
-    data = 0
+    # class for table with records about courses
 
     def __init__(self):
         self.data = dict()
-        pass
 
+    # adds to table new record about course if record doesn't exists and
+    # returns primary key of this record
     def get_course_id(self, studies, semester, course_name, elective_id,
                       requester_data, requester_key):
         if course_name in self.data:

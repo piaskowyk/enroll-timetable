@@ -39,3 +39,19 @@ free -r D17:1.38 -r D17:1.18 -d Pn -d Pt -h 8:00 -h 11:15
 free -r D17:1.38 -r D17:1.18 -d Pn -d Pt -h 8:00 -h 11:15 -c 50
 exit
 help 
+help
+room-table a.pdf
+free -d Cz -h 17:50
+free -d Cz -h 17:50 -t W
+free -d Cz -h 17:50 -t L
+free -d Cz -h 17:50 -t W
+free -d Cz -h 17:50 -t W -c 300
+exit
+room-table b.pdf
+hel[p
+help 
+free -d Wt -h 11:15 
+free -d Wt -h 11:15 -c 300
+free -d Wt -h 11:15 -c 300 -t L
+free -d Wt -h 11:15 -c 300 -t W
+free -d Wt -h 11:15 -c 300 -t W -r D11:104 

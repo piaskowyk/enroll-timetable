@@ -102,13 +102,17 @@ class FreeRoom:
         for room_key, room in rooms_details.items():
 
             if self.args_val['capacity'] is not None \
-                    and spreadsheet_data.room_data.data[room_key].capacity is not None:
-                if spreadsheet_data.room_data.data[room_key].capacity < int(self.args_val['capacity']):
+                    and spreadsheet_data.room_data.data[
+                room_key].capacity is not None:
+                if spreadsheet_data.room_data.data[room_key].capacity < int(
+                        self.args_val['capacity']):
                     continue
 
-            if self.args_val['type'] is not None\
-                    and spreadsheet_data.room_data.data[room_key].type is not None:
-                if spreadsheet_data.room_data.data[room_key].type != self.args_val['type']:
+            if self.args_val['type'] is not None \
+                    and spreadsheet_data.room_data.data[
+                room_key].type is not None:
+                if spreadsheet_data.room_data.data[room_key].type != \
+                        self.args_val['type']:
                     continue
 
             # apply day filter
@@ -139,9 +143,11 @@ class FreeRoom:
                         if len(item_hour) > 1:
                             continue
                         if item_hour[0][2] is "A":
-                            print("Free room", room_key, key_day, key_hour, "week B")
+                            print("Free room", room_key, key_day, key_hour,
+                                  "week B")
                         elif item_hour[0][2] is "B":
-                            print("Free room", room_key, key_day, key_hour, "week A")
+                            print("Free room", room_key, key_day, key_hour,
+                                  "week A")
 
     # parsing input arguments
     def parse_args(self, args):
@@ -198,7 +204,8 @@ class FreeRoom:
 
     # get events for any room
     def get_room_event_list(self, spreadsheet_data):
-        if self.room_events is not None and id(spreadsheet_data) is self.data_id:
+        if self.room_events is not None and id(
+                spreadsheet_data) is self.data_id:
             return self.room_events
 
         self.data_id = id(spreadsheet_data)
@@ -207,12 +214,14 @@ class FreeRoom:
 
             day_event = dict()
             for day in self.tools.days_of_week[0:5]:
-                data_id = id(spreadsheet_data.full_time_first_semester_event_data)
+                data_id = id(
+                    spreadsheet_data.full_time_first_semester_event_data)
                 semester_data = spreadsheet_data.full_time_first_semester_event_data.data
 
                 result = self.get_empty_hour_dict()
                 if data_id in room.referenced_by:
-                    result = self.get_room_event_by_day(day, room, data_id, semester_data)
+                    result = self.get_room_event_by_day(day, room, data_id,
+                                                        semester_data)
                 day_event[day] = result
 
             self.room_events[room_key] = day_event

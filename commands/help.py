@@ -36,6 +36,8 @@ Używaj znaku TAB aby skorzystać z podpowiedzi do komend
 
 
 """
+
+
 class Help:
 
     def exec_command(self, x):

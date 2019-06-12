@@ -45,6 +45,7 @@ else:
 cmd_hist_file = open('commandHistory.txt', 'a+')
 user_command_getter = UserCommandGetter(cmd_hist_file)
 
+
 # set sheet data and configuration
 def set_spreadsheet_data(data):
     global spreadsheet_data
