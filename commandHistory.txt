@@ -55,3 +55,7 @@ free -d Wt -h 11:15 -c 300
 free -d Wt -h 11:15 -c 300 -t L
 free -d Wt -h 11:15 -c 300 -t W
 free -d Wt -h 11:15 -c 300 -t W -r D11:104 
+
+free -d Pn
+help
+room-table tmp.pdf
